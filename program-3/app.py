@@ -1,50 +1,73 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import os
-from topsis_pkg import main # Aapka banaya hua logic import kar rahe hain
 
-st.set_page_config(page_title="TOPSIS Web App - 102317089", layout="centered")
+st.set_page_config(page_title="TOPSIS - 102317089", layout="centered")
 
 st.title("📊 TOPSIS Decision Maker")
-st.write("Upload your CSV file, specify weights and impacts, and get the results instantly.")
+st.subheader("Roll Number: 102317089")
 
-# 1. File Upload
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-
-if uploaded_file is not None:
-    data = pd.read_csv(uploaded_file)
-    st.write("### Preview of Uploaded Data", data.head())
-
-    # 2. Inputs
-    weights = st.text_input("Enter Weights (comma separated)", "1,1,1,1")
-    impacts = st.text_input("Enter Impacts (+ or - comma separated)", "+,+,-,+")
+# --- TOPSIS CALCULATION LOGIC ---
+def calculate_topsis(data, weights, impacts):
+    # Numeric data extraction (excluding first column)
+    matrix = data.iloc[:, 1:].values.astype(float)
     
-    if st.button("Calculate TOPSIS"):
-        # Temporary files for processing
-        data.to_csv("temp_input.csv", index=False)
+    # 1. Normalization
+    norm_matrix = matrix / np.sqrt((matrix**2).sum(axis=0))
+    
+    # 2. Weighted Normalization
+    weighted_matrix = norm_matrix * weights
+    
+    # 3. Ideal Best and Worst
+    ideal_best = []
+    ideal_worst = []
+    for i in range(len(impacts)):
+        if impacts[i] == '+':
+            ideal_best.append(max(weighted_matrix[:, i]))
+            ideal_worst.append(min(weighted_matrix[:, i]))
+        else:
+            ideal_best.append(min(weighted_matrix[:, i]))
+            ideal_worst.append(max(weighted_matrix[:, i]))
+            
+    # 4. Distance Calculation
+    s_best = np.sqrt(((weighted_matrix - ideal_best)**2).sum(axis=1))
+    s_worst = np.sqrt(((weighted_matrix - ideal_worst)**2).sum(axis=1))
+    
+    # 5. Performance Score
+    score = s_worst / (s_best + s_worst)
+    return score
+
+# --- USER INTERFACE ---
+uploaded_file = st.file_uploader("Upload Input CSV", type="csv")
+
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+    st.write("### Data Preview", df.head())
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        weights_str = st.text_input("Weights (comma separated)", "1,1,1,1")
+    with col2:
+        impacts_str = st.text_input("Impacts (+/- separated)", "+,+,-,+")
         
+    if st.button("Calculate TOPSIS"):
         try:
-            # Calling your package logic
-            import sys
-            from io import StringIO
+            weights = [float(w) for w in weights_str.split(',')]
+            impacts = impacts_str.split(',')
             
-            # Mocking command line arguments for your existing main()
-            sys.argv = ['topsis', 'temp_input.csv', weights, impacts, 'temp_result.csv']
-            main()
-            
-            # Display results
-            if os.path.exists("temp_result.csv"):
-                result_df = pd.read_csv("temp_result.csv")
-                st.success("✅ TOPSIS calculation successful!")
-                st.write("### Results", result_df)
+            # Basic Validation
+            if len(weights) != (df.shape[1]-1) or len(impacts) != (df.shape[1]-1):
+                st.error("Error: Weights aur Impacts ki count columns (excluding 1st) ke barabar honi chahiye!")
+            else:
+                scores = calculate_topsis(df, weights, impacts)
+                df['Topsis Score'] = scores
+                df['Rank'] = df['Topsis Score'].rank(ascending=False).astype(int)
                 
-                # Download Button
-                st.download_button(
-                    label="Download Result CSV",
-                    data=result_df.to_csv(index=False),
-                    file_name="102317089-result.csv",
-                    mime="text/csv"
-                )
+                st.success("Success! Results are ready.")
+                st.write("### Results Table", df)
+                
+                # Download Result
+                csv = df.to_csv(index=False)
+                st.download_button("Download Result CSV", csv, "result_102317089.csv", "text/csv")
         except Exception as e:
-            st.error(f"Error: {e}")
+            st.error(f"Something went wrong: {e}")
