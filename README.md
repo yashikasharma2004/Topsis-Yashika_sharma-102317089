@@ -17,6 +17,10 @@ Standalone Python script for TOPSIS analysis.
 **Usage:**
 python topsis_pkg.py 102317089-data.csv "1,1,1,1,1" "+,+,-,+,-" 102317089-result.csv
 
+
+<img width="588" height="381" alt="image" src="https://github.com/user-attachments/assets/18d9f73b-8ba0-40da-95fb-aa246fc1e6c9" />
+
+
 ---
 
 ## 📦 Program 2: Python Package on PyPI
