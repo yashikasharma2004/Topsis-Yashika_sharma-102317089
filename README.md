@@ -21,6 +21,9 @@ Standalone Python script for TOPSIS analysis.
 ```bash
 python topsis_pkg.py 102317089-data.csv "1,1,1,1,1" "+,+,-,+,-" 102317089-result.csv
 
+---
+
+
 ##📦 Program 2: Python Package on PyPI
 Installable package for TOPSIS.
 
@@ -28,6 +31,8 @@ Installation:
 
 Bash
 pip install Topsis-Yashika-102317089
+
+---
 
 ##🌐 Program 3: Web Application
 User-friendly interface built with Streamlit.
