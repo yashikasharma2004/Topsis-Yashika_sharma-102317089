@@ -30,6 +30,9 @@ The TOPSIS logic is published as a reusable package.
 * **Installation:** pip install Topsis-Yashika-102317089
 * **PyPI Link:** https://pypi.org/project/Topsis-Yashika-102317089/
 
+* <img width="1456" height="521" alt="image" src="https://github.com/user-attachments/assets/467eb296-fb33-4172-9b5e-6a9ee8f0312d" />
+
+
 ---
 
 ## 🌐 Program 3: Web Application
