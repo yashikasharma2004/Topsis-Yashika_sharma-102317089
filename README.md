@@ -1,16 +1,13 @@
 # TOPSIS Multi-Criteria Decision Analysis
 
-TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution) is a multi-criteria decision analysis method.
+TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution) is a multi-criteria decision analysis method that ranks alternatives based on their distance from ideal solutions.
+
+---
 
 ## 🎯 Assignment Overview
-**Roll Number:** 102317089  
 **Name:** Yashika Sharma  
-
-| Program | Description | Link |
-| :--- | :--- | :--- |
-| **Program 1** | CLI Python script | [View Code](./program-1) |
-| **Program 2** | PyPI Package | [PyPI Link](https://pypi.org/project/Topsis-Yashika-102317089/) |
-| **Program 3** | Web Application | [Live Demo](https://topsis-yashikasharma-102317089-xsjvpgzkpf9rnebkprcjze.streamlit.app/) |
+**Roll Number:** 102317089  
+**Branch:** B.Tech CSE (6th Semester)
 
 ---
 
@@ -21,21 +18,22 @@ Standalone Python script for TOPSIS analysis.
 ```bash
 python topsis_pkg.py 102317089-data.csv "1,1,1,1,1" "+,+,-,+,-" 102317089-result.csv
 
----
 
 
-##📦 Program 2: Python Package on PyPI
-Installable package for TOPSIS.
+📦 Program 2: Python Package on PyPI
+The TOPSIS logic is packaged and published on PyPI for easy installation.
 
-Installation:
+Package Name: Topsis-Yashika-102317089
 
-Bash
-pip install Topsis-Yashika-102317089
+Installation: pip install Topsis-Yashika-102317089
 
----
+Official Link: View on PyPI
 
-##🌐 Program 3: Web Application
-User-friendly interface built with Streamlit.
+
+🌐 Program 3: Web Application
+A user-friendly web interface built with Streamlit for instant calculations.
+
+Live Demo: Open Web App
 
 Run Locally:
 
@@ -44,11 +42,12 @@ cd "program-3"
 pip install -r requirements.txt
 streamlit run app.py
 
-📁 Repository Structure
-program-1/ - CLI Script
 
-program-2/ - PyPI Source
+📁 Repository Structure
+program-1/ - CLI Script & Sample Data
+
+program-2/ - PyPI Source Code
 
 program-3/ - Web App & requirements.txt
 
-Author: Yashika Sharma | Roll Number: 102317089 | Branch: B.Tech CSE
+README.md - Documentation
